@@ -8,5 +8,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/github/redirect', [OAuthController::class, 'githubRedirect']);
-Route::get('/github/callback', [OAuthController::class, 'githubCallback']);
+Route::get('/auth/github/redirect', [OAuthController::class, 'githubRedirect']);
+Route::get('/auth/github/callback', [OAuthController::class, 'githubCallback']);
