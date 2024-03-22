@@ -22,4 +22,20 @@ class OAuthController extends Controller
 
         return json_encode($user, JSON_PRETTY_PRINT);
     }
+
+    public function googleRedirect() {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function googleCallback() {
+        $google_user = Socialite::driver('google')->user();
+        $user = [
+            'name' => $google_user->getName(),
+            'email' => $google_user->getEmail(),
+            'token' => $google_user->token,
+            'avatar' => $google_user->getAvatar(),
+        ];
+
+        return json_encode($user, JSON_PRETTY_PRINT);
+    }
 }
