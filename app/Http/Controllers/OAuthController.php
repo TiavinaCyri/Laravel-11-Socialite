@@ -11,7 +11,15 @@ class OAuthController extends Controller
     }
 
     public function githubCallback() {
-        $user = Socialite::driver('github')->user();
-        dd($user->token);
+        $github_user = Socialite::driver('github')->user();
+
+        $user = [
+            'name' => $github_user->getNickname(),
+            'email' => $github_user->getEmail(),
+            'token' => $github_user->token,
+            'avatar' => $github_user->getAvatar(),
+        ];
+
+        return $user;
     }
 }
