@@ -20,6 +20,6 @@ class OAuthController extends Controller
             'avatar' => $github_user->getAvatar(),
         ];
 
-        return $user;
+        return json_encode($user, JSON_PRETTY_PRINT);
     }
 }
