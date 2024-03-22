@@ -7,6 +7,6 @@ use Laravel\Socialite\Facades\Socialite;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/auth/redirect', [OAuthController::class, 'githubRedirect']);
 
-Route::get('/auth/callback', [OAuthController::class, 'githubCallback']);
+Route::get('/github/redirect', [OAuthController::class, 'githubRedirect']);
+Route::get('/github/callback', [OAuthController::class, 'githubCallback']);
