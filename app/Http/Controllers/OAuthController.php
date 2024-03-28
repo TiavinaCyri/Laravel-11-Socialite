@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use Laravel\Socialite\Facades\Socialite;
+use Resend\Laravel\Facades\Resend;
 
 class OAuthController extends Controller
 {
-    public function githubRedirect() {
+    public function githubRedirect()
+    {
         return Socialite::driver('github')->redirect();
     }
 
-    public function githubCallback() {
+    public function githubCallback()
+    {
         $github_user = Socialite::driver('github')->user();
 
         $user = [
@@ -20,14 +23,23 @@ class OAuthController extends Controller
             'avatar' => $github_user->getAvatar(),
         ];
 
+        Resend::emails()->send([
+            'from' => 'Laravel 11 <onboarding@resend.dev>',
+            'to' => $user['email'],
+            'subject' => 'Welcome to Laravel 11',
+            'html' => 'You have successfully logged in with GitHub. Welcome to Laravel 11!',
+        ]);
+
         return json_encode($user, JSON_PRETTY_PRINT);
     }
 
-    public function googleRedirect() {
+    public function googleRedirect()
+    {
         return Socialite::driver('google')->redirect();
     }
 
-    public function googleCallback() {
+    public function googleCallback()
+    {
         $google_user = Socialite::driver('google')->user();
         $user = [
             'name' => $google_user->getName(),
